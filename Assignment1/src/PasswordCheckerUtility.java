@@ -1,5 +1,6 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class PasswordCheckerUtility {
 	public static void comparePasswords(String password, String passwordConfirm) throws UnmatchedException {
@@ -73,5 +74,19 @@ public class PasswordCheckerUtility {
 			throw new WeakPasswordException("The password is OK but weak - it contains fewer than 10 characters.");
 		return false;
 	}
-
+	
+	public static ArrayList<String> getInvalidPasswords(ArrayList<String> passwords){
+		ArrayList<String> invalidPasswords = new ArrayList<String>();
+		for(String password: passwords){
+			try {
+				if(!isValidPassword(password))
+					invalidPasswords.add(password);
+			} catch (LengthException | NoUpperAlphaException | NoLowerAlphaException | NoDigitException
+					| NoSpecialCharacterException | InvalidSequenceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return invalidPasswords;
+	}
 }
