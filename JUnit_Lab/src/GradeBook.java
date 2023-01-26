@@ -80,16 +80,16 @@ public class GradeBook
    }
 
    public int getScoreSize(){
-      return(scores.length);
+      return(scoresSize);
    }
 
    public String toString(){
-      String line = "";
+      String listOfScores = "";
       for (double score: scores){
-         line+=(score+" ");
+         listOfScores+=(score+" ");
       }
 
-      return line;
+      return listOfScores;
    }
 }
 
