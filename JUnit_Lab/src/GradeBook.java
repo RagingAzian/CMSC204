@@ -90,11 +90,4 @@ public class GradeBook
       }
       return listOfScores;
    }
-
-   public static void main(String [] args){
-      GradeBook book = new GradeBook(5);
-      book.addScore(90);
-      book.addScore(100);
-      System.out.print(book.minimum());
-   }
 }
