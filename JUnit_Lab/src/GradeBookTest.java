@@ -45,7 +45,7 @@ public class GradeBookTest {
 
     @Test
     public void testToString(){
-        assertTrue("50.0 75.0 0.0 0.0 0.0 ".equals(book.toString()));
-        assertTrue("90.0 100.0 0.0 0.0 0.0 ".equals(book2.toString()));
+        assertTrue("50.0 75.0 ".equals(book.toString()));
+        assertTrue("90.0 100.0 ".equals(book2.toString()));
     }
 }
