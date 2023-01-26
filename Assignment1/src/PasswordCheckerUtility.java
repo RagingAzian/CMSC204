@@ -93,20 +93,19 @@ public class PasswordCheckerUtility {
 		ArrayList<String> invalidPasswords = new ArrayList<String>();
 		for(String password: passwords){
 			try {
-				if(!isValidPassword(password))
-					invalidPasswords.add(password);
+				isValidPassword(password);
 			} catch (LengthException e) {
-				e.printStackTrace();
+				invalidPasswords.add(password);
 			} catch (NoUpperAlphaException e) {
-				e.printStackTrace();
+				invalidPasswords.add(password);
 			} catch (NoLowerAlphaException e) {
-				e.printStackTrace();
+				invalidPasswords.add(password);
 			} catch (NoDigitException e) {
-				e.printStackTrace();
+				invalidPasswords.add(password);
 			} catch (NoSpecialCharacterException e) {
-				e.printStackTrace();
+				invalidPasswords.add(password);
 			} catch (InvalidSequenceException e) {
-				e.printStackTrace();
+				invalidPasswords.add(password);
 			}
 		}
 		return invalidPasswords;
