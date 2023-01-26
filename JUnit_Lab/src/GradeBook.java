@@ -85,11 +85,16 @@ public class GradeBook
 
    public String toString(){
       String listOfScores = "";
-      for (double score: scores){
-         listOfScores+=(score+" ");
+      for (int score = 0; score<scoresSize;score++){
+         listOfScores+=(scores[score]+" ");
       }
-
       return listOfScores;
    }
-}
 
+   public static void main(String [] args){
+      GradeBook book = new GradeBook(5);
+      book.addScore(90);
+      book.addScore(100);
+      System.out.print(book.minimum());
+   }
+}
