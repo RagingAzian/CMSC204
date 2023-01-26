@@ -12,9 +12,11 @@ public class GradeBookTest {
     @Before
     public void setup(){
         book = new GradeBook(5);
-        book = new GradeBook(5);
+        book2 = new GradeBook(5);
+        
         book.addScore(50);
         book.addScore(75);
+        
         book2.addScore(90);
         book2.addScore(100);
     }
