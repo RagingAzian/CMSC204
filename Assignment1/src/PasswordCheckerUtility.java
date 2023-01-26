@@ -70,8 +70,22 @@ public class PasswordCheckerUtility {
 	}
 
 	public static boolean isWeakPassword(String password) throws WeakPasswordException {
-		if (hasBetweenSixAndNineChars(password))
-			throw new WeakPasswordException("The password is OK but weak - it contains fewer than 10 characters.");
+		try {
+			if (hasBetweenSixAndNineChars(password)&&isValidPassword(password))
+				throw new WeakPasswordException("The password is OK but weak - it contains fewer than 10 characters.");
+		} catch (LengthException e) {
+			e.printStackTrace();
+		} catch (NoUpperAlphaException e) {
+			e.printStackTrace();
+		} catch (NoLowerAlphaException e) {
+			e.printStackTrace();
+		} catch (NoDigitException e) {
+			e.printStackTrace();
+		} catch (NoSpecialCharacterException e) {
+			e.printStackTrace();
+		} catch (InvalidSequenceException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 	
@@ -81,9 +95,17 @@ public class PasswordCheckerUtility {
 			try {
 				if(!isValidPassword(password))
 					invalidPasswords.add(password);
-			} catch (LengthException | NoUpperAlphaException | NoLowerAlphaException | NoDigitException
-					| NoSpecialCharacterException | InvalidSequenceException e) {
-				// TODO Auto-generated catch block
+			} catch (LengthException e) {
+				e.printStackTrace();
+			} catch (NoUpperAlphaException e) {
+				e.printStackTrace();
+			} catch (NoLowerAlphaException e) {
+				e.printStackTrace();
+			} catch (NoDigitException e) {
+				e.printStackTrace();
+			} catch (NoSpecialCharacterException e) {
+				e.printStackTrace();
+			} catch (InvalidSequenceException e) {
 				e.printStackTrace();
 			}
 		}
