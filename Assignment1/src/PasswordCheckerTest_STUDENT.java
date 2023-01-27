@@ -16,14 +16,20 @@ import org.junit.Test;
  */
 public class PasswordCheckerTest_STUDENT {
 
+	ArrayList<String> passwords;
+	String password1, password2;
+
 	@Before
 	public void setUp() throws Exception {
-		
+		String[] p = {"334455BB#", "george2ZZZ#", "4Sal#", "bertha22", "august30", "a2cDe", 
+				"ApplesxxxYYzz#", "aa11Bb", "pilotProject", "AAAbb@123"};
+		passwords = new ArrayList<String>();
+		passwords.addAll(Arrays.asList(p)); // puts strings into the ArrayList
 	}
 
 	@After
 	public void tearDown() throws Exception {
-	
+		passwords = null;
 	}
 
 	/**
@@ -33,7 +39,17 @@ public class PasswordCheckerTest_STUDENT {
 	@Test
 	public void testIsValidPasswordTooShort()
 	{
-		fail("Not implemented by student yet");
+		try{
+			assertTrue(PasswordCheckerUtility.isValidLength("hello"));
+		}
+		catch(LengthException e)
+		{
+			assertTrue("Successfully threw a lengthExcepetion",true);
+		}
+		catch(Exception e)
+		{
+			assertTrue("Threw some other exception besides lengthException",false);
+		}
 	}
 	
 	/**
@@ -43,7 +59,17 @@ public class PasswordCheckerTest_STUDENT {
 	@Test
 	public void testIsValidPasswordNoUpperAlpha()
 	{
-		fail("Not implemented by student yet");
+		try{
+			assertTrue(PasswordCheckerUtility.hasUpperAlpha("hellohello"));
+		}
+		catch(NoUpperAlphaException e)
+		{
+			assertTrue("Successfully threw a NoUpperAlphaException",true);
+		}
+		catch(Exception e)
+		{
+			assertTrue("Threw some other exception besides NoUpperAlphaException",false);
+		}
 	}
 	
 	/**
@@ -53,7 +79,17 @@ public class PasswordCheckerTest_STUDENT {
 	@Test
 	public void testIsValidPasswordNoLowerAlpha()
 	{
-		fail("Not implemented by student yet");
+		try{
+			assertTrue(PasswordCheckerUtility.hasLowerAlpha("HELLOHELLO"));
+		}
+		catch(NoLowerAlphaException e)
+		{
+			assertTrue("Successfully threw a NoUpperLowerException",true);
+		}
+		catch(Exception e)
+		{
+			assertTrue("Threw some other exception besides NoLowerAlphaException",false);
+		}
 	}
 	/**
 	 * Test if the password has more than 2 of the same character in sequence
@@ -62,7 +98,17 @@ public class PasswordCheckerTest_STUDENT {
 	@Test
 	public void testIsWeakPassword()
 	{
-		fail("Not implemented by student yet");
+		try{
+			assertTrue(PasswordCheckerUtility.isWeakPassword("1$Helloh"));
+		}
+		catch(WeakPasswordException e)
+		{
+			assertTrue("Successfully threw a WeakPasswordException",true);
+		}
+		catch(Exception e)
+		{
+			assertTrue("Threw some other exception besides WeakPasswordException",false);
+		}
 	}
 	
 	/**
@@ -72,7 +118,17 @@ public class PasswordCheckerTest_STUDENT {
 	@Test
 	public void testIsValidPasswordInvalidSequence()
 	{
-		fail("Not implemented by student yet");
+		try{
+			assertTrue(PasswordCheckerUtility.NoSameCharInSequence​("1$Helllo"));
+		}
+		catch(InvalidSequenceException e)
+		{
+			assertTrue("Successfully threw a InvalidSequenceException",true);
+		}
+		catch(Exception e)
+		{
+			assertTrue("Threw some other exception besides InvalidSequenceException",false);
+		}
 	}
 	
 	/**
@@ -82,7 +138,17 @@ public class PasswordCheckerTest_STUDENT {
 	@Test
 	public void testIsValidPasswordNoDigit()
 	{
-		fail("Not implemented by student yet");
+		try{
+			assertTrue(PasswordCheckerUtility.hasDigit("Helloh"));
+		}
+		catch(NoDigitException e)
+		{
+			assertTrue("Successfully threw a NoDigitException",true);
+		}
+		catch(Exception e)
+		{
+			assertTrue("Threw some other exception besides NoDigitException",false);
+		}
 	}
 	
 	/**
@@ -92,7 +158,17 @@ public class PasswordCheckerTest_STUDENT {
 	@Test
 	public void testIsValidPasswordSuccessful()
 	{
-		fail("Not implemented by student yet");
+		try{
+			assertEquals(true,PasswordCheckerUtility.isValidPassword("Hello123"));
+		}
+		catch(NoSpecialCharacterException e)
+		{
+			assertTrue("Successfully threw a NoSpecialCharacterException",true);
+		}
+		catch(Exception e)
+		{
+			assertFalse("Threw some other exception besides lengthException", true);
+		}
 	}
 	
 	/**
@@ -101,7 +177,62 @@ public class PasswordCheckerTest_STUDENT {
 	 */
 	@Test
 	public void testInvalidPasswords() {
-		fail("Not implemented by student yet");
+		ArrayList<String> results;
+		results = PasswordCheckerUtility.getInvalidPasswords(passwords);
+		
+		Scanner scan = new Scanner(results.get(0)); 
+		assertEquals(scan.next(), "334455BB#");
+		String nextResults = scan.nextLine().toLowerCase();
+		assertTrue(nextResults.contains("lowercase"));
+		
+		scan = new Scanner(results.get(1));  
+		assertEquals(scan.next(), "george2ZZZ#");
+		nextResults = scan.nextLine().toLowerCase(); 
+		assertTrue(nextResults.contains("sequence"));
+		
+		 
+		scan = new Scanner(results.get(2));  
+		assertEquals(scan.next(), "4Sal#");
+		nextResults = scan.nextLine().toLowerCase();
+		assertTrue(nextResults.contains("long"));
+		
+				scan = new Scanner(results.get(3));  
+		assertEquals(scan.next(), "bertha22");
+		nextResults = scan.nextLine().toLowerCase();
+		assertTrue(nextResults.contains("uppercase"));
+		
+		scan = new Scanner(results.get(4));  
+		assertEquals(scan.next(), "august30");
+		nextResults = scan.nextLine().toLowerCase();
+		assertTrue(nextResults.contains("uppercase") );
+		
+		 
+		
+		scan = new Scanner(results.get(5));  
+		assertEquals(scan.next(), "a2cDe");
+		nextResults = scan.nextLine().toLowerCase();
+		assertTrue(nextResults.contains("long") );
+		
+		scan = new Scanner(results.get(6));  
+		assertEquals(scan.next(), "ApplesxxxYYzz#");
+		nextResults = scan.nextLine().toLowerCase();
+		assertTrue(nextResults.contains("digit") );
+		
+		scan = new Scanner(results.get(7));  
+		assertEquals(scan.next(), "aa11Bb");
+		nextResults = scan.nextLine().toLowerCase();
+		assertTrue(nextResults.contains("special") );
+		
+		
+		scan = new Scanner(results.get(8)); 
+		assertEquals(scan.next(), "pilotProject");
+		nextResults = scan.nextLine().toLowerCase();
+		assertTrue(nextResults.contains("digit") );
+		
+		scan = new Scanner(results.get(9));  
+		assertEquals(scan.next(), "AAAbb@123");
+		nextResults = scan.nextLine().toLowerCase();
+		assertTrue(nextResults.contains("sequence") );
 	}
 	
 }
