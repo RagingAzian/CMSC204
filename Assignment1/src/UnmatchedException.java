@@ -1,7 +1,7 @@
 
 
 public class UnmatchedException extends Exception {
-	public UnmatchedException(String Message) {
-		super(Message);
+	public UnmatchedException() {
+		super("Passwords do not match");
 	}
 }

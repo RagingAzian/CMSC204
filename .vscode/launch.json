@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch PasswordDriverFX",
+            "request": "launch",
+            "vmArgs": "--module-path C:\\Users\\justi\\Downloads\\openjfx-19.0.2.1_windows-x64_bin-sdk\\javafx-sdk-19.0.2.1\\lib --add-modules javafx.controls,javafx.fxml", 
+            "mainClass": "PasswordDriverFX",
+            "projectName": "CMSC204_4b5117b8"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 
 public class NoUpperAlphaException extends Exception {
-	public NoUpperAlphaException(String Message) {
-		super(Message);
+	public NoUpperAlphaException() {
+		super("The password must contain at least one uppercase alphabetic character");
 	}
 }
