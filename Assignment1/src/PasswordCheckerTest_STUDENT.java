@@ -21,7 +21,7 @@ public class PasswordCheckerTest_STUDENT {
 
 	@Before
 	public void setUp() throws Exception {
-		String[] p = {"334455BB#", "george2ZZZ#", "4Sal#", "bertha22", "august30", "a2cDe", 
+		String[] p = {"ABCDEFG", "a23095Ab#AAA", "ab34", "abe1235", "32aflrr23", "a2cDe", 
 				"ApplesxxxYYzz#", "aa11Bb", "pilotProject", "AAAbb@123"};
 		passwords = new ArrayList<String>();
 		passwords.addAll(Arrays.asList(p)); // puts strings into the ArrayList
@@ -181,28 +181,28 @@ public class PasswordCheckerTest_STUDENT {
 		results = PasswordCheckerUtility.getInvalidPasswords(passwords);
 		
 		Scanner scan = new Scanner(results.get(0)); 
-		assertEquals(scan.next(), "334455BB#");
+		assertEquals(scan.next(), "ABCDEFG");
 		String nextResults = scan.nextLine().toLowerCase();
 		assertTrue(nextResults.contains("lowercase"));
 		
 		scan = new Scanner(results.get(1));  
-		assertEquals(scan.next(), "george2ZZZ#");
+		assertEquals(scan.next(), "a23095Ab#AAA");
 		nextResults = scan.nextLine().toLowerCase(); 
 		assertTrue(nextResults.contains("sequence"));
 		
 		 
 		scan = new Scanner(results.get(2));  
-		assertEquals(scan.next(), "4Sal#");
+		assertEquals(scan.next(), "ab34");
 		nextResults = scan.nextLine().toLowerCase();
 		assertTrue(nextResults.contains("long"));
 		
 				scan = new Scanner(results.get(3));  
-		assertEquals(scan.next(), "bertha22");
+		assertEquals(scan.next(), "abe1235");
 		nextResults = scan.nextLine().toLowerCase();
 		assertTrue(nextResults.contains("uppercase"));
 		
 		scan = new Scanner(results.get(4));  
-		assertEquals(scan.next(), "august30");
+		assertEquals(scan.next(), "32aflrr23");
 		nextResults = scan.nextLine().toLowerCase();
 		assertTrue(nextResults.contains("uppercase") );
 		
