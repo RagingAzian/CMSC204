@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DataSetTester",
+            "request": "launch",
+            "mainClass": "DataSetTester",
+            "projectName": "CMSC204_4b5117b8"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -14,7 +21,7 @@
             "type": "java",
             "name": "Launch PasswordDriverFX",
             "request": "launch",
-            "vmArgs": "--module-path C:\\Users\\justi\\Downloads\\openjfx-19.0.2.1_windows-x64_bin-sdk\\javafx-sdk-19.0.2.1\\lib --add-modules javafx.controls,javafx.fxml", 
+            "vmArgs": "--module-path C:\\Users\\justi\\Downloads\\openjfx-19.0.2.1_windows-x64_bin-sdk\\javafx-sdk-19.0.2.1\\lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "PasswordDriverFX",
             "projectName": "CMSC204_4b5117b8"
         }
