@@ -119,7 +119,7 @@ public class PasswordCheckerTest_STUDENT {
 	public void testIsValidPasswordInvalidSequence()
 	{
 		try{
-			assertTrue(PasswordCheckerUtility.NoSameCharInSequence​("1$Helllo"));
+			assertTrue(PasswordCheckerUtility.NoSameCharInSequence("1$Helllo"));
 		}
 		catch(InvalidSequenceException e)
 		{

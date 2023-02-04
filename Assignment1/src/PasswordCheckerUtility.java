@@ -50,7 +50,7 @@ public class PasswordCheckerUtility {
 		return true;
 	}
 
-	public static boolean NoSameCharInSequence​(String password) throws InvalidSequenceException {
+	public static boolean NoSameCharInSequence(String password) throws InvalidSequenceException {
 		Pattern pattern = Pattern.compile("((.)\\2{2,})");
 		Matcher matcher = pattern.matcher(password);
 		if (matcher.find())
@@ -61,7 +61,7 @@ public class PasswordCheckerUtility {
 	public static boolean isValidPassword(String password) throws LengthException, NoUpperAlphaException,
 			NoLowerAlphaException, NoDigitException, NoSpecialCharacterException, InvalidSequenceException {
 		return (isValidLength(password) && hasUpperAlpha(password) && hasLowerAlpha(password) && hasDigit(password)
-				&& hasSpecialChar(password) && !NoSameCharInSequence​(password));
+				&& hasSpecialChar(password) && !NoSameCharInSequence(password));
 	}
 
 	public static boolean hasBetweenSixAndNineChars(String password) {
