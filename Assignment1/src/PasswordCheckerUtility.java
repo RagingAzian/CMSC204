@@ -69,22 +69,8 @@ public class PasswordCheckerUtility {
 	}
 
 	public static boolean isWeakPassword(String password) throws WeakPasswordException {
-		try {
-			if (hasBetweenSixAndNineChars(password)&&isValidPassword(password))
-				throw new WeakPasswordException();
-		} catch (LengthException e) {
-			System.out.println("Invalid Password: The password must be at least 6 characters long");
-		} catch (NoUpperAlphaException e) {
-			System.out.println("Invalid Password: The password must contain at least one uppercase alphabetic character");
-		} catch (NoLowerAlphaException e) {
-			System.out.println("Invalid Password: The password must contain at least one lowercase alphabetic character");
-		} catch (NoDigitException e) {
-			System.out.println("Invalid Password: The password must contain at least one digit");
-		} catch (NoSpecialCharacterException e) {
-			System.out.println("Invalid Password: The password must contain at least one special character");
-		} catch (InvalidSequenceException e) {
-			System.out.println("Invalid Password: The password cannot contain more than two of the same character in sequence.");
-		}
+		if(hasBetweenSixAndNineChars(password))
+			throw new WeakPasswordException();
 		return false;
 	}
 	
