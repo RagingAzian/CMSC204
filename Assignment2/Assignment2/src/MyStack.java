@@ -42,7 +42,12 @@ public class MyStack<T> implements StackInterface<T>{
         if(size==size()){
             throw new StackOverflowException();
         }
-        stack.add(e);
+        topIndex++;
+        if(topIndex<stack.size()){
+            stack.set(topIndex, e);
+        }
+        else
+            stack.add(e);
         return true;
     }
 
