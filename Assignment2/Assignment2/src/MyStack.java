@@ -10,7 +10,7 @@ public class MyStack<T> implements StackInterface<T>{
         stack = new ArrayList<T>(this.size);
     }
     public MyStack(){
-        stack = new ArrayList<T>(10);
+        stack = new ArrayList<T>(size);
     }
     public boolean isEmpty(){
         return(topIndex==-1);
@@ -23,7 +23,7 @@ public class MyStack<T> implements StackInterface<T>{
     public T pop() throws StackUnderflowException{
         if(!isEmpty()){
             topIndex--;
-            return(stack.remove(topIndex));
+            return(stack.remove(topIndex+1));
         }
         throw new StackUnderflowException();
     }
