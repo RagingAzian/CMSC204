@@ -10,7 +10,7 @@ public class MyStack<T> implements StackInterface<T>{
         stack = new ArrayList<T>(this.size);
     }
     public MyStack(){
-        stack = new ArrayList<T>();
+        stack = new ArrayList<T>(10);
     }
     public boolean isEmpty(){
         return(topIndex==-1);
@@ -40,7 +40,7 @@ public class MyStack<T> implements StackInterface<T>{
     }
 
     public boolean push(T e) throws StackOverflowException{
-        if(size==size()){
+        if(isFull()){
             throw new StackOverflowException();
         }
         topIndex++;
