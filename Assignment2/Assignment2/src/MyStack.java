@@ -22,6 +22,7 @@ public class MyStack<T> implements StackInterface<T>{
 
     public T pop() throws StackUnderflowException{
         if(!isEmpty()){
+            topIndex--;
             return(stack.remove(topIndex));
         }
         throw new StackUnderflowException();
