@@ -23,7 +23,7 @@ public class MyStack<T> implements StackInterface<T>{
     public T pop() throws StackUnderflowException{
         if(!isEmpty()){
             topIndex--;
-            return(stack.remove(topIndex+1));
+            return(stack.set(topIndex+1,null));
         }
         throw new StackUnderflowException();
     }
@@ -36,7 +36,7 @@ public class MyStack<T> implements StackInterface<T>{
     }
 
     public int size(){
-        return stack.size();
+        return topIndex+1;
     }
 
     public boolean push(T e) throws StackOverflowException{
@@ -55,7 +55,8 @@ public class MyStack<T> implements StackInterface<T>{
     public String toString(){
         String list = "";
         for(T e: stack){
-            list+=e+" ";
+            if(e!=null)
+                list+=e;
         }
         return list;
     }
@@ -63,7 +64,8 @@ public class MyStack<T> implements StackInterface<T>{
     public String toString(String delimiter){
         String list = "";
         for(T e: stack){
-            list+=e+delimiter;
+            if(e!=null)
+                list+=e+delimiter;
         }
         list = list.substring(0,list.length()-1);
         return list;
