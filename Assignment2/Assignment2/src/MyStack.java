@@ -72,9 +72,13 @@ public class MyStack<T> implements StackInterface<T>{
     }
 
     public void fill(ArrayList<T> list){
-        for(T elm: list){
-            try{
-                this.push(elm);
+        ArrayList<T> copy = new ArrayList<>();;
+    	for(T item: list)
+    		copy.add(item);
+    	
+    	for(T item: copy){
+            try {
+                push(item);
             }
             catch(StackOverflowException e){
                 e.printStackTrace();
