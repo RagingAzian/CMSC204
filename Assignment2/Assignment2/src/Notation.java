@@ -32,29 +32,19 @@ public class Notation {
 					continue;
 				}
 			}
-			if(myStack.size>1){
+
+			if (myStack.size()>1)
 				throw new Exception();
-			}
 		} catch(Exception e){
 			throw new InvalidNotationFormatException();
 		}
+
 		return Integer.parseInt(myStack.toString());
 	}
-	
-	// public static String convertPostfixToInfix(String postfix) throws InvalidNotationFormatException{
-		
-	// }
+
 
 	public static boolean checkIfOperator(String string) {
 		return (string.equalsIgnoreCase("+") || string.equalsIgnoreCase("-") || string.equalsIgnoreCase("*")
 				|| string.equalsIgnoreCase("/"));
-	}
-
-	public static void main(String []args){
-		try{
-			System.out.print(evaluatePostfixExpression("2 3 1 * + 9 -"));
-		} catch (InvalidNotationFormatException e) {
-			System.out.println("There was an error");
-		}
 	}
 }
