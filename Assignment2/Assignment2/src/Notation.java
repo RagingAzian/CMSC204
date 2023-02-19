@@ -114,15 +114,15 @@ public class Notation {
 		}
 	}
 
-	public static boolean precedence(String a, String b){
+	public static boolean precedence(String op1, String op2){
 		int prec1, prec2;
 
-		if(a.equals("*")||a.equals("/"))
+		if(op1.equals("*")||op1.equals("/"))
 			prec1 = 2;
 		else 
 			prec1 = 1;
 
-		if(b.equals("*")||b.equals("/"))
+		if(op2.equals("*")||op2.equals("/"))
 			prec2 = 2;
 		else 
 			prec2 = 1;
