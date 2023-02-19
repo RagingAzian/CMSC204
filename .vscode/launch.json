@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Notation",
+            "request": "launch",
+            "mainClass": "Notation",
+            "projectName": "CMSC204_4b5117b8"
+        },
+        {
+            "type": "java",
             "name": "Launch DataSet",
             "request": "launch",
             "mainClass": "DataSet",
