@@ -70,7 +70,7 @@ public class Notation {
 				else if(c=='(')
 					stack.push(Character.toString(c));
 				else if (checkIfOperator(Character.toString(c))){
-					if(!stack.isEmpty()&& checkIfOperator(stack.top())){
+					if(!stack.isEmpty()&& checkIfOperator(stack.top())&&precedence(stack.top(),Character.toString(c))){
 						queue.enqueue(stack.pop());
 					}
 					stack.push(Character.toString(c));
@@ -112,5 +112,20 @@ public class Notation {
 			default:
 				return 0;
 		}
+	}
+
+	public static boolean precedence(String a, String b){
+		int prec1, prec2;
+
+		if(a.equals("*")||a.equals("/"))
+			prec1 = 2;
+		else 
+			prec1 = 1;
+
+		if(b.equals("*")||b.equals("/"))
+			prec2 = 2;
+		else 
+			prec2 = 1;
+		return(prec1>=prec2);
 	}
 }
