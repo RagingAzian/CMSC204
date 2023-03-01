@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch BasicDoubleLinkedList",
+            "request": "launch",
+            "mainClass": "BasicDoubleLinkedList",
+            "projectName": "CMSC204_4b5117b8"
+        },
+        {
+            "type": "java",
             "name": "Launch ArraySumDriver",
             "request": "launch",
             "mainClass": "ArraySumDriver",
