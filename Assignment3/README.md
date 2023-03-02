@@ -1,6 +1,4 @@
-## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Assignment 3
 
 Assignment 3: Generic double linked list with iterator and generic double-linked list class with iterator
 
