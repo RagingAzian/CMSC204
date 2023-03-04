@@ -1,6 +1,5 @@
 import java.util.*;
 
-import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
 public class BasicDoubleLinkedList<T> implements Iterable<T> {
     protected int size;
