@@ -197,44 +197,46 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
             return !headNode;
         }
 
-        public T next() throws NoSuchElementException {
-            if (hasNext()) {
-                if (node == null && !tailNode) {
-                    node = prev;
-                }
-                T t = node.getItem();
-                prev = node;
-                node = node.getNext();
-                if (node == null) {
-                    tailNode = true;
-                } else {
-                    headNode = false;
-                    tailNode = false;
-                }
-                return t;
+
+
+        public T next() throws NoSuchElementException{
+            if(!hasNext())
+                throw new NoSuchElementException();
+            if(node==null && !tailNode){
+                node = prev;
             }
-            throw new NoSuchElementException();
+            T t = node.getItem();
+            prev = node;
+            node = node.getNext();
+            if(node == null){
+                tailNode = true;
+            }
+            else{
+                headNode = false;
+                tailNode = false;
+            }
+            return t;
         }
 
         public T previous() throws NoSuchElementException {
-            if (hasPrevious()) {
-                if (node == null && !headNode) {
-                    node = prev;
-                }
-                T t = node.getItem();
-                prev = node;
-                node = node.getPrev();
-                if (node == null) {
-                    headNode = true;
-                } else {
-                    headNode = false;
-                    tailNode = false;
-                }
-                return t;
+            if (!hasPrevious()) {
+                throw new NoSuchElementException();
             }
-            throw new NoSuchElementException();
+            if (node == null && !headNode) {
+                node = prev;
+            }
+            T t = node.getItem();
+            prev = node;
+            node = node.getPrev();
+            if (node == null) {
+                headNode = true;
+            } else {
+                headNode = false;
+                tailNode = false;
+            }
+            return t;
         }
-
+        
         public int nextIndex() {
             throw new UnsupportedOperationException();
         }
