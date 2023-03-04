@@ -3,13 +3,13 @@ import java.util.*;
 
 public class BasicDoubleLinkedList<T> implements Iterable<T> {
     protected int size;
-    protected Node first;
-    protected Node last;
+    protected Node head;
+    protected Node tail;
 
     public BasicDoubleLinkedList() {
         size = 0;
-        first = null;
-        last = null;
+        head = null;
+        tail = null;
     }
 
     public int getSize() {
@@ -17,38 +17,38 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void addToEnd(T data) {
-        if (last == null) {
-            last = new Node(data, null, null);
-            first = last;
+        if (tail == null) {
+            tail = new Node(data, null, null);
+            head = tail;
         } else {
-            Node nextLast = new Node(data, last, null);
-            last.setNext(nextLast);
-            last = nextLast;
+            Node nextLast = new Node(data, tail, null);
+            tail.setNext(nextLast);
+            tail = nextLast;
         }
         size++;
     }
 
     public void addToFront(T data) {
-        if (first == null) {
-            first = new Node(data, null, null);
-            last = first;
+        if (head == null) {
+            head = new Node(data, null, null);
+            tail = head;
         } else {
-            Node nextFirst = new Node(data, null, first);
-            first.setPrev(nextFirst);
-            first = nextFirst;
+            Node nextFirst = new Node(data, null, head);
+            head.setPrev(nextFirst);
+            head = nextFirst;
         }
         size++;
     }
 
     public T getFirst() {
-        if (first != null)
-            return first.getItem();
+        if (head != null)
+            return head.getItem();
         return null;
     }
 
     public T getLast() {
-        if (last != null)
-            return last.getItem();
+        if (tail != null)
+            return tail.getItem();
         return null;
     }
 
@@ -57,15 +57,15 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
     }
 
     public Node remove(T targetData, Comparator<T> comparator) {
-        Node current = first;
+        Node current = head;
 
         if (size == 0) {
             return current;
         }
         if (size == 1) {
-            if (comparator.compare(targetData, first.getItem()) == 0) {
-                first = null;
-                last = null;
+            if (comparator.compare(targetData, head.getItem()) == 0) {
+                head = null;
+                tail = null;
                 size--;
             }
             return current;
@@ -73,11 +73,11 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
 
         while (current != null) {
             if (comparator.compare(targetData, current.getItem()) == 0) {
-                if (current.equals(first)) {
-                    first = current.getNext();
+                if (current.equals(head)) {
+                    head = current.getNext();
                     current.getNext().setPrev(null);
-                } else if (current.equals(last)) {
-                    last = current.getPrev();
+                } else if (current.equals(tail)) {
+                    tail = current.getPrev();
                     current.getPrev().setNext(null);
                 } else {
                     current.getPrev().setNext(current.getNext());
@@ -93,30 +93,30 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T retrieveFirstElement() {
-        if (first != null) {
-            T t = first.getItem();
+        if (head != null) {
+            T t = head.getItem();
             if (size == 1) {
-                first = null;
-                last = null;
+                head = null;
+                tail = null;
                 return t;
             }
-            first = first.getNext();
-            first.setPrev(null);
+            head = head.getNext();
+            head.setPrev(null);
             return t;
         }
         return null;
     }
 
     public T retrieveLastElement() {
-        if (last != null) {
-            T t = last.getItem();
+        if (tail != null) {
+            T t = tail.getItem();
             if (size == 1) {
-                first = null;
-                last = null;
+                head = null;
+                tail = null;
                 return t;
             }
-            last = last.getPrev();
-            last.setNext(null);
+            tail = tail.getPrev();
+            tail.setNext(null);
             size--;
             return t;
         }
@@ -134,12 +134,24 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
 
     public class Node {
         private T data;
-        private Node prev, next = null;
+        private Node prev, next;
 
         Node(T data, Node prev, Node next) {
             this.data = data;
             this.prev = prev;
             this.next = next;
+        }
+
+        Node(){
+            data = null;
+            prev = null;
+            next = null;
+        }
+
+        Node(T data){
+            this.data = data;
+            prev = null;
+            next = null;
         }
 
         public T getItem() {
@@ -170,34 +182,34 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
     protected class DoubleLinkedListIterator implements ListIterator<T> {
         Node node;
         Node prev;
-        boolean firstNode, lastNode = false;
+        boolean headNode, tailNode = false;
 
         DoubleLinkedListIterator() {
-            node = first;
-            firstNode = true;
+            node = head;
+            headNode = true;
         }
 
         public boolean hasNext() {
-            return !lastNode;
+            return !tailNode;
         }
 
         public boolean hasPrevious() {
-            return !firstNode;
+            return !headNode;
         }
 
         public T next() throws NoSuchElementException {
             if (hasNext()) {
-                if (node == null && lastNode == false) {
+                if (node == null && !tailNode) {
                     node = prev;
                 }
                 T t = node.getItem();
                 prev = node;
                 node = node.getNext();
                 if (node == null) {
-                    lastNode = true;
+                    tailNode = true;
                 } else {
-                    firstNode = false;
-                    lastNode = false;
+                    headNode = false;
+                    tailNode = false;
                 }
                 return t;
             }
@@ -206,17 +218,17 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
 
         public T previous() throws NoSuchElementException {
             if (hasPrevious()) {
-                if (node == null && firstNode == false) {
+                if (node == null && !headNode) {
                     node = prev;
                 }
                 T t = node.getItem();
                 prev = node;
                 node = node.getPrev();
                 if (node == null) {
-                    firstNode = true;
+                    headNode = true;
                 } else {
-                    firstNode = false;
-                    lastNode = false;
+                    headNode = false;
+                    tailNode = false;
                 }
                 return t;
             }

@@ -6,39 +6,36 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T>{
         this.comparator = comparator;
     }
 
-    public SortedDoubleLinkedList<T> add (T data){
-        if(size==0){
+    public void add (T data){
+        if(size==0 || comparator.compare(head.getItem(), data)>=0){
             super.addToFront(data);
-            return this;
+            return;
         }
-
-        if(comparator.compare(first.getItem(), data)>=0){
-            super.addToFront(data);
-            return this;
-        }
-        if(comparator.compare(last.getItem(),data)<=0){
+        if(comparator.compare(tail.getItem(),data)<=0){
             super.addToEnd(data);
-            return this;
+            return;
         }
         int prev = -1;
         int current;
 
-        Node currentNode = first;
+        Node currentNode = head;
         Node newNode;
 
         while(true){
             current = comparator.compare(currentNode.getItem(),data);
             if(prev < 0 && current >= 0 ){
 				newNode = new Node(data, currentNode.getPrev(), currentNode);
-				currentNode.getPrev().setNext(newNode);
-				currentNode.setPrev(newNode);
+				newNode.setPrev(currentNode.getPrev());
+				newNode.setNext(currentNode);
+                currentNode.getPrev().setNext(newNode);
+                currentNode.setPrev(newNode);
 				size++;
 				break;
             }
             prev = current;
             currentNode = currentNode.getNext();
         }
-        return this;
+        return;
     }
     public void addToEnd(T data) {
 		throw new UnsupportedOperationException("Invalid operation for sorted list");
