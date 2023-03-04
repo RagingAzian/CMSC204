@@ -180,41 +180,27 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
     }
 
     protected class DoubleLinkedListIterator implements ListIterator<T> {
-        Node node;
-        Node prev;
-        boolean headNode, tailNode = false;
+        Node next;
+        Node prev = null;
 
         DoubleLinkedListIterator() {
-            node = head;
-            headNode = true;
+            next = head;
         }
 
         public boolean hasNext() {
-            return !tailNode;
+            return next!=null;
         }
 
         public boolean hasPrevious() {
-            return !headNode;
+            return prev!=null;
         }
-
-
 
         public T next() throws NoSuchElementException{
             if(!hasNext())
                 throw new NoSuchElementException();
-            if(node==null && !tailNode){
-                node = prev;
-            }
-            T t = node.getItem();
-            prev = node;
-            node = node.getNext();
-            if(node == null){
-                tailNode = true;
-            }
-            else{
-                headNode = false;
-                tailNode = false;
-            }
+            T t = next.getItem();
+            prev = next;
+            next = next.next;
             return t;
         }
 
@@ -222,18 +208,9 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
             if (!hasPrevious()) {
                 throw new NoSuchElementException();
             }
-            if (node == null && !headNode) {
-                node = prev;
-            }
-            T t = node.getItem();
-            prev = node;
-            node = node.getPrev();
-            if (node == null) {
-                headNode = true;
-            } else {
-                headNode = false;
-                tailNode = false;
-            }
+            T t = prev.getItem();
+            next = prev;
+            prev = prev.prev;
             return t;
         }
         
