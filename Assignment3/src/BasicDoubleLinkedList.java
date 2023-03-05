@@ -180,8 +180,7 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
     }
 
     protected class DoubleLinkedListIterator implements ListIterator<T> {
-        Node next;
-        Node prev = null;
+        Node next, prev = next = null;
 
         DoubleLinkedListIterator() {
             next = head;
