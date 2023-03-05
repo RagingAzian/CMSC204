@@ -8,8 +8,7 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
 
     public BasicDoubleLinkedList() {
         size = 0;
-        head = null;
-        tail = null;
+        head = tail = null;
     }
 
     public int getSize() {
@@ -64,8 +63,7 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
         }
         if (size == 1) {
             if (comparator.compare(targetData, head.getItem()) == 0) {
-                head = null;
-                tail = null;
+                head = tail = null;
                 size--;
             }
             return current;
@@ -99,8 +97,7 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
             return null;
         T t = head.getItem();
         if(size ==1){
-            head = null;
-            tail = null;
+            head = tail = null;
             return t;
         }
         head = head.getNext();
