@@ -72,55 +72,56 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
         }
 
         while (current != null) {
-            if (comparator.compare(targetData, current.getItem()) == 0) {
-                if (current.equals(head)) {
-                    head = current.getNext();
-                    current.getNext().setPrev(null);
-                } else if (current.equals(tail)) {
-                    tail = current.getPrev();
-                    current.getPrev().setNext(null);
-                } else {
-                    current.getPrev().setNext(current.getNext());
-                    current.getNext().setPrev(current.getPrev());
-                }
-
+            if(comparator.compare(targetData,current.getItem())!=0)
+                current = current.getNext();
+            else if (current.equals(head)) {
+                head = current.getNext();
+                current.getNext().setPrev(null);
+                size--;
+                break;
+            } else if (current.equals(tail)) {
+                tail = current.getPrev();
+                current.getPrev().setNext(null);
+                size--;
+                break;
+            } else {
+                current.getPrev().setNext(current.getNext());
+                current.getNext().setPrev(current.getPrev());
                 size--;
                 break;
             }
-            current = current.getNext();
         }
         return current;
     }
 
-    public T retrieveFirstElement() {
-        if (head != null) {
-            T t = head.getItem();
-            if (size == 1) {
-                head = null;
-                tail = null;
-                return t;
-            }
-            head = head.getNext();
-            head.setPrev(null);
+    public T retrieveFirstElement(){
+        if (head == null)
+            return null;
+        T t = head.getItem();
+        if(size ==1){
+            head = null;
+            tail = null;
             return t;
         }
-        return null;
+        head = head.getNext();
+        head.setPrev(null);
+        return t;
     }
 
-    public T retrieveLastElement() {
-        if (tail != null) {
-            T t = tail.getItem();
-            if (size == 1) {
-                head = null;
-                tail = null;
-                return t;
-            }
-            tail = tail.getPrev();
-            tail.setNext(null);
-            size--;
+
+    public T retrieveLastElement(){
+        if(tail==null)
+            return null;
+        T t = tail.getItem();
+        if(size==1){
+            head = null;
+            tail = null;
             return t;
         }
-        return null;
+        tail = tail.getPrev();
+        tail.setNext(null);
+        size--;
+        return t;
     }
 
     public ArrayList<T> toArrayList() {
