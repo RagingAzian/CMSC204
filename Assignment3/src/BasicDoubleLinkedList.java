@@ -126,13 +126,12 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
     public ArrayList<T> toArrayList() {
         ArrayList<T> list = new ArrayList<T>();
         DoubleLinkedListIterator iterator = (DoubleLinkedListIterator) iterator();
-        while (iterator.hasNext()) {
+        while (iterator.hasNext()) 
             list.add(iterator.next());
-        }
         return list;
     }
 
-    public class Node {
+    protected class Node {
         private T data;
         private Node prev, next;
 
