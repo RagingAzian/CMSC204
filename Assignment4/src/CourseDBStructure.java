@@ -38,11 +38,11 @@ public class CourseDBStructure implements CourseDBStructureInterface{
 
     public CourseDBElement get(int crn) throws IOException {
         int hashCode = Integer.toString(crn).hashCode();
-        int bucket = hashCode % tableSize;
-        if (hashTable[bucket] == null) {
+        int index = hashCode % tableSize;
+        if (hashTable[index] == null) {
             throw new IOException();
         }
-        for (CourseDBElement e : hashTable[bucket]) {
+        for (CourseDBElement e : hashTable[index]) {
             if (e.getCRN() == crn) {
                 return e;
             }
@@ -51,15 +51,15 @@ public class CourseDBStructure implements CourseDBStructureInterface{
     }
 
     public ArrayList<String> showAll() {
-        ArrayList<String> result = new ArrayList<>();
+        ArrayList<String> courseList = new ArrayList<>();
         for (LinkedList<CourseDBElement> list : hashTable) {
             if (list != null) {
                 for (CourseDBElement e : list) {
-                    result.add(e.toString());
+                    courseList.add(e.toString());
                 }
             }
         }
-        return result;
+        return courseList;
     }
 
     public int getTableSize(){
