@@ -10,24 +10,62 @@ public class CourseDBStructure implements CourseDBStructureInterface{
         int size = (int)(n / 1.5);
         tableSize = findNextPrime(size);
         hashTable = new LinkedList[tableSize];
+        for(int x= 0;x<tableSize;x++){
+            hashTable[x]=new LinkedList<CourseDBElement>();
+        }
     }
 
     public CourseDBStructure(String s, int size){
         this.tableSize = size;
         hashTable = new LinkedList[tableSize];
-    }
-
-    public void add(CourseDBElement element){
-        int hashcode = element.getCRN()%tableSize;
-        if(hashTable[hashcode]==null){
-            hashTable[hashcode].add(element);
-            return;
-        }
-        else{
-            hashTable[hashcode].set(0,element);
+        for(int x= 0;x<tableSize;x++){
+            hashTable[x]=new LinkedList<CourseDBElement>();
         }
     }
 
+    public void add(CourseDBElement element) {
+        int index = Integer.toString(element.getCRN()).hashCode() % tableSize;
+        if (hashTable[index].isEmpty()) {
+            hashTable[index].add(element);
+        } else {
+            for (CourseDBElement e : hashTable[index]) {
+                if (e.getCRN() == element.getCRN()) {
+                    hashTable[index].set(0, element);
+                }
+            }
+        }
+    }
+
+    public CourseDBElement get(int crn) throws IOException {
+        int hashCode = Integer.toString(crn).hashCode();
+        int bucket = hashCode % tableSize;
+        if (hashTable[bucket] == null) {
+            throw new IOException();
+        }
+        for (CourseDBElement e : hashTable[bucket]) {
+            if (e.getCRN() == crn) {
+                return e;
+            }
+        }
+        throw new IOException();
+    }
+
+    public ArrayList<String> showAll() {
+        ArrayList<String> result = new ArrayList<>();
+        for (LinkedList<CourseDBElement> list : hashTable) {
+            if (list != null) {
+                for (CourseDBElement e : list) {
+                    result.add(e.toString());
+                }
+            }
+        }
+        return result;
+    }
+
+    public int getTableSize(){
+        return tableSize;
+    }
+    
     private boolean isPrime(int num) {
         if (num <= 1) {
             return false;
