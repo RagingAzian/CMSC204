@@ -32,4 +32,7 @@ public class CourseDBElement implements Comparable<CourseDBElement>{
     public String getID(){
         return courseID;
     }
+    public String getRoomNum(){
+        return roomNo;
+    }
 }
