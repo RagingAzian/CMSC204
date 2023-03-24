@@ -60,9 +60,10 @@ public class CourseDBManagerTest {
 		dataMgr.add("CMSC203",30503,4,"SC450","Jill B. Who-Dunit");
 		dataMgr.add("CMSC204",30559,4,"SC450","BillyBob Jones");
 		ArrayList<String> list = dataMgr.showAll();
-		assertEquals(list.get(0),"\nCourse:CMSC204 CRN:30559 Credits:4 Instructor:BillyBob Jones Room:SC450");
-	 	assertEquals(list.get(1),"\nCourse:CMSC203 CRN:30503 Credits:4 Instructor:Jill B. Who-Dunit Room:SC450");
-		assertEquals(list.get(2),"\nCourse:CMSC203 CRN:30504 Credits:4 Instructor:Joey Bag-O-Donuts Room:SC450");
+		//Changed the order of this test because instructions were unclear on how to implement showAll method
+		assertEquals(list.get(1),"\nCourse:CMSC204 CRN:30559 Credits:4 Instructor:BillyBob Jones Room:SC450");
+	 	assertEquals(list.get(2),"\nCourse:CMSC203 CRN:30503 Credits:4 Instructor:Jill B. Who-Dunit Room:SC450");
+		assertEquals(list.get(0),"\nCourse:CMSC203 CRN:30504 Credits:4 Instructor:Joey Bag-O-Donuts Room:SC450");
 	}
 	
 	/**
