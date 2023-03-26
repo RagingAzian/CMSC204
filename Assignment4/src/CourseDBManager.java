@@ -34,7 +34,7 @@ public class CourseDBManager implements CourseDBManagerInterface {
 			String instructor = "";
 			for(int i = 4; i < temp.length; i ++)
 				instructor += temp[i] + " ";
-			add(temp[0], Integer.valueOf(temp[1]), Integer.valueOf(temp[2]), temp[3], instructor.substring(0, instructor.length() - 1));			
+			add(temp[0], Integer.valueOf(temp[1]), Integer.valueOf(temp[2]), temp[3], instructor.trim());			
 		}
 		scan.close();
 	}
