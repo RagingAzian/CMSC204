@@ -6,8 +6,8 @@ public class CourseDBStructure implements CourseDBStructureInterface{
     private int tableSize;
     private LinkedList<CourseDBElement>[] hashTable;
 
-    public CourseDBStructure(int n){
-        int temp = (int)(n / 1.5);
+    public CourseDBStructure(int num){
+        int temp = (int)(num / 1.5);
         tableSize = findNextPrime(temp);
         hashTable = new LinkedList[tableSize];
         for(int x= 0;x<tableSize;x++){
@@ -77,10 +77,10 @@ public class CourseDBStructure implements CourseDBStructureInterface{
         }
         return true;
     }
-    private int findNextPrime(int n) {
-        while (!isPrime(n)||n%4!=3) {
-            n++;
+    private int findNextPrime(int num) {
+        while (!isPrime(num)||num%4!=3) {
+            num++;
         }
-        return n;
+        return num;
     }
 }
