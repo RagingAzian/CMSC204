@@ -3,28 +3,28 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 
 public class CourseDBStructure implements CourseDBStructureInterface{
-    private int size;
+    private int tableSize;
     private LinkedList<CourseDBElement>[] hashTable;
 
     public CourseDBStructure(int n){
         int temp = (int)(n / 1.5);
-        size = findNextPrime(temp);
-        hashTable = new LinkedList[size];
-        for(int x= 0;x<size;x++){
+        tableSize = findNextPrime(temp);
+        hashTable = new LinkedList[tableSize];
+        for(int x= 0;x<tableSize;x++){
             hashTable[x]=new LinkedList<CourseDBElement>();
         }
     }
 
     public CourseDBStructure(String s, int size){
-        this.size = size;
-        hashTable = new LinkedList[size];
-        for(int x= 0;x<size;x++){
+        this.tableSize = size;
+        hashTable = new LinkedList[tableSize];
+        for(int x= 0;x<tableSize;x++){
             hashTable[x]=new LinkedList<CourseDBElement>();
         }
     }
 
     public void add(CourseDBElement element) {
-        int index = Integer.toString(element.getCRN()).hashCode() % size;
+        int index = Integer.toString(element.getCRN()).hashCode() % tableSize;
         if (hashTable[index].isEmpty()) {
             hashTable[index].add(element);
         } else {
@@ -38,7 +38,7 @@ public class CourseDBStructure implements CourseDBStructureInterface{
 
     public CourseDBElement get(int crn) throws IOException {
         int hashCode = Integer.toString(crn).hashCode();
-        int index = hashCode % size;
+        int index = hashCode % tableSize;
         if (hashTable[index] == null) {
             throw new IOException();
         }
@@ -63,7 +63,7 @@ public class CourseDBStructure implements CourseDBStructureInterface{
     }
 
     public int getTableSize(){
-        return size;
+        return tableSize;
     }
     
     private boolean isPrime(int num) {
