@@ -14,6 +14,13 @@ public class CourseDBElement implements Comparable<CourseDBElement>{
         this.roomNo = roomNo;
         this.name = name;
     }
+    public CourseDBElement(){
+        courseID = "";
+        CRN = 0;
+        noOfCreds = 0;
+        roomNo = "";
+        name = "";
+    }
 
     @Override
     public int compareTo(CourseDBElement element) {
@@ -25,6 +32,10 @@ public class CourseDBElement implements Comparable<CourseDBElement>{
     public String toString() {
 		return "\nCourse:"+courseID+" CRN:"+CRN+" Credits:"+noOfCreds+" Instructor:"+name+" Room:"+roomNo;
 	}
+
+    public void setCRN(int CRN){
+        this.CRN = CRN;
+    }
 
     public int getCRN(){
         return CRN;
