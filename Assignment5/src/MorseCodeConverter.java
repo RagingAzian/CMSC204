@@ -8,39 +8,40 @@ public class MorseCodeConverter {
 	private static MorseCodeTree t = new MorseCodeTree();
 
 	public static String convertToEnglish(File inputFile) throws FileNotFoundException {
-		Scanner s = new Scanner(inputFile);
-		return convertToEnglish(s.nextLine());
+		try (Scanner scan = new Scanner(inputFile)) {
+            return convertToEnglish(scan.nextLine());
+        }
 	}
 
-	public static String convertToEnglish(String string) {
-		string += " ";
-		String translated = "";
+	public static String convertToEnglish(String s) {
+		s += " ";
+		String text = "";
 		String code = "";
-		for(String c : string.split("")) {
-			if(c.equals("/")) {
-				translated += " ";
+		for(String index : s.split("")) {
+			if(index.equals("/")) {
+				text += " ";
 			}
-			else if(c.equals(" ")) {
+			else if(index.equals(" ")) {
 				if(code.length()!=0) {
-					translated += t.fetch(code);
+					text += t.fetch(code);
 					code = "";
 				}
 			} else {
-				code += c;
+				code += index;
 			}
 		}
-		return translated;
+		return text;
 	}
 
 	public static String printTree() {
-		String o = "";
+		String text = "";
 		ArrayList<String> arr = t.toArrayList();
 		for (String s: arr) {
-			o += s + " ";
+			text += s + " ";
 		}
-        o=o.substring(0,o.length()-1);
-        System.out.println(o);
-		return o;
+        text=text.substring(0,text.length()-1);
+        System.out.println(text);
+		return text;
 	}
 
 }

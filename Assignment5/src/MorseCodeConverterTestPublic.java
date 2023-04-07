@@ -47,7 +47,7 @@ public class MorseCodeConverterTestPublic {
 		/*Make sure howDoILoveThee.txt is in the src directory for this 
 		  test to pass
 		*/
-		File file = new File("howDoILoveThee.txt"); 
+		File file = new File("C:/Users/justi/CMSC204/CMSC204/Assignment5/src/howDoILoveThee.txt"); 
 		try {
 			assertEquals("how do i love thee let me count the ways", MorseCodeConverter.convertToEnglish(file));
 		} catch (FileNotFoundException e) {
