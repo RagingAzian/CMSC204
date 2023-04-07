@@ -1,13 +1,15 @@
 public class TreeNode <T>{
-    private TreeNode<T> leftChild;
-    private TreeNode<T> rightChild; 
-    private T data;
+    protected TreeNode<T> leftChild;
+    protected TreeNode<T> rightChild; 
+    protected T data;
 
     public TreeNode(){
     }
     
     public TreeNode(T data){
         this.data = data;
+        leftChild = null;
+        rightChild = null;
     }
     public TreeNode(TreeNode<T> node){
         this.data = node.data;
@@ -17,20 +19,5 @@ public class TreeNode <T>{
 
     public T getData(){
         return data;
-    }
-
-    public TreeNode<T> getLeftChild(){
-        return leftChild;
-    }
-    
-    public TreeNode<T> getRightChild(){
-        return rightChild;
-    }
-    public void setLeftChild(TreeNode<T> leftChild){
-        this.leftChild = leftChild;
-    }
-    
-    public void setRightChild(TreeNode<T> rightChild){
-        this.rightChild = rightChild;
     }
 }

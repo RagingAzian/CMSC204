@@ -1,64 +1,82 @@
 import java.util.ArrayList;
 
-public class MorseCodeTree implements LinkedConverterTreeInterface<String>{
-    TreeNode<String> root = new TreeNode<String>();
-    
-    public MorseCodeTree(){
-        buildTree();
-    }
-    public TreeNode<String> getRoot(){
-        return root;
-    }
+public class MorseCodeTree implements LinkedConverterTreeInterface<String> {
+	protected TreeNode<String> root = new TreeNode<String>();
 
-    public void setRoot(TreeNode<String> newNode){
-        root = new TreeNode<String>(newNode);
-    }
+	public MorseCodeTree() {
+		// call buildtree
+		buildTree();
+	}
 
-    public LinkedConverterTreeInterface<String> insert(String code, String result){
-        addNode(root, code, result);
-        return this;
-    }
+	@Override
+	public TreeNode<String> getRoot() {
+		return root;
+	}
 
-    public void addNode(TreeNode<String> root, String code, String letter){
-        if(code.length()==1 && code.equals(".")){
-            root.setLeftChild(new TreeNode<String>(letter));
-        }
-        else if(code.length()==1 && code.equals("-")){
-            root.setRightChild(new TreeNode<String>(letter));
-        }
-        else if(code.length()!=1 && code.charAt(0)=='-')
-            addNode(root.getRightChild(), code.substring(1), letter);
-        else if(code.length()!=1 && code.charAt(0)=='.')
-            addNode(root.getLeftChild(), code.substring(1),letter);
-    }
-    public String fetch(String code){
-        return fetchNode(root, code);
-    }
-    public String fetchNode(TreeNode<String> root, String code) {
-        char[] directions = code.toCharArray();
-        TreeNode<String> currentNode = root;
-    
-        for (char direction : directions) {
+	@Override
+	public void setRoot(TreeNode<String> newNode) {
+		root = new TreeNode<String>(newNode);
+	}
+
+	@Override
+	public LinkedConverterTreeInterface<String> insert(String code, String result) {
+		addNode(root, code, result);
+		return this;
+	}
+
+	@Override
+	public void addNode(TreeNode<String> root, String code, String letter) {
+        for (int i = 0; i < code.length(); i++) {
+            char direction = code.charAt(i);
             if (direction == '.') {
-                currentNode = currentNode.getLeftChild();
+                if (root.leftChild == null) {
+                    root.leftChild = new TreeNode<String>();
+                }
+                root = root.leftChild;
             } else if (direction == '-') {
-                currentNode = currentNode.getRightChild();
-            } else {
+                if (root.rightChild == null) {
+                    root.rightChild = new TreeNode<String>();
+                }
+                root = root.rightChild;
+            }
+        }
+        root.data = letter;
+    }
+
+	@Override
+	public String fetch(String code) {
+		return fetchNode(root, code);
+	}
+
+	@Override
+	public String fetchNode(TreeNode<String> root, String code) {
+		for (int i = 0; i < code.length(); i++) {
+            char direction = code.charAt(i);
+            if (direction == '.') {
+                root = root.leftChild;
+            } else if (direction == '-') {
+                root = root.rightChild;
+            }
+            if (root == null) {
                 return null;
             }
         }
-        return currentNode.getData();
-    }
+        return root.getData();
+	}
 
-    public LinkedConverterTreeInterface<String> delete(String data) throws UnsupportedOperationException {
+	@Override
+	public LinkedConverterTreeInterface<String> delete(String data) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
-	
-    public LinkedConverterTreeInterface<String> update() throws UnsupportedOperationException {
+
+	@Override
+	public LinkedConverterTreeInterface<String> update() throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
-    public void buildTree(){
-        setRoot(new TreeNode<String>(""));
+
+	@Override
+	public void buildTree() {
+		setRoot(new TreeNode<String>(""));
 
 		insert(".", "e");
 		insert("-", "t");
@@ -87,19 +105,23 @@ public class MorseCodeTree implements LinkedConverterTreeInterface<String>{
 		insert("--..", "z");
 		insert("--.-", "q");
 
-    }
-    public ArrayList<String> toArrayList(){
-        ArrayList<String> list = new ArrayList<String>();
-        LNRoutputTraversal(root, list);
-        return list;
-    }
+	}
 
-    public void LNRoutputTraversal(TreeNode<String> root, ArrayList<String> list) {
+	@Override
+	public ArrayList<String> toArrayList() {
+		ArrayList<String> o = new ArrayList<String>();
+		LNRoutputTraversal(root, o);
+		return o;
+	}
+
+	@Override
+	public void LNRoutputTraversal(TreeNode<String> root, ArrayList<String> list) {
 		if (root == null) {
 			return;
 		}
-		LNRoutputTraversal(root.getLeftChild(), list);
+		LNRoutputTraversal(root.leftChild, list);
 		list.add(root.getData());
-		LNRoutputTraversal(root.getRightChild(), list);
+		LNRoutputTraversal(root.rightChild, list);
 	}
+
 }
