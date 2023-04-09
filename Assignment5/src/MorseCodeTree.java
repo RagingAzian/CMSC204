@@ -19,9 +19,8 @@ public class MorseCodeTree implements LinkedConverterTreeInterface<String> {
 	}
 
 	@Override
-	public LinkedConverterTreeInterface<String> insert(String code, String result) {
+	public void insert(String code, String result) {
 		addNode(root, code, result);
-		return this;
 	}
 
 	@Override

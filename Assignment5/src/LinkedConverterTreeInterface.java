@@ -35,11 +35,10 @@ public interface LinkedConverterTreeInterface<T> {
 	 * This method will call the recursive method addNode
 	 * 
 	 * @param code the code for the new node to be added
-	 * @return 
 	 * 
 	 */
 	 
-	 public LinkedConverterTreeInterface<String> insert(T code, T result);	
+	 public void insert(T code, T result);	
 	 
 	/**
 	 * This is a recursive method that adds element to the correct position 
