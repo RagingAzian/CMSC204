@@ -4,7 +4,6 @@ public class MorseCodeTree implements LinkedConverterTreeInterface<String> {
 	protected TreeNode<String> root = new TreeNode<String>();
 
 	public MorseCodeTree() {
-		// call buildtree
 		buildTree();
 	}
 
@@ -26,13 +25,13 @@ public class MorseCodeTree implements LinkedConverterTreeInterface<String> {
 	@Override
 	public void addNode(TreeNode<String> root, String code, String letter) {
         for (int i = 0; i < code.length(); i++) {
-            char direction = code.charAt(i);
-            if (direction == '.') {
+            char c = code.charAt(i);
+            if (c == '.') {
                 if (root.leftChild == null) {
                     root.leftChild = new TreeNode<String>();
                 }
                 root = root.leftChild;
-            } else if (direction == '-') {
+            } else if (c == '-') {
                 if (root.rightChild == null) {
                     root.rightChild = new TreeNode<String>();
                 }
@@ -50,10 +49,10 @@ public class MorseCodeTree implements LinkedConverterTreeInterface<String> {
 	@Override
 	public String fetchNode(TreeNode<String> root, String code) {
 		for (int i = 0; i < code.length(); i++) {
-            char direction = code.charAt(i);
-            if (direction == '.') {
+            char c = code.charAt(i);
+            if (c == '.') {
                 root = root.leftChild;
-            } else if (direction == '-') {
+            } else if (c == '-') {
                 root = root.rightChild;
             }
             if (root == null) {
@@ -108,9 +107,9 @@ public class MorseCodeTree implements LinkedConverterTreeInterface<String> {
 
 	@Override
 	public ArrayList<String> toArrayList() {
-		ArrayList<String> o = new ArrayList<String>();
-		LNRoutputTraversal(root, o);
-		return o;
+		ArrayList<String> list = new ArrayList<String>();
+		LNRoutputTraversal(root, list);
+		return list;
 	}
 
 	@Override
