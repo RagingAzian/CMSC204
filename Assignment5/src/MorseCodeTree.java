@@ -24,22 +24,20 @@ public class MorseCodeTree implements LinkedConverterTreeInterface<String> {
 
 	@Override
 	public void addNode(TreeNode<String> root, String code, String letter) {
-        for (int i = 0; i < code.length(); i++) {
-            char c = code.charAt(i);
-            if (c == '.') {
-                if (root.leftChild == null) {
-                    root.leftChild = new TreeNode<String>();
-                }
-                root = root.leftChild;
-            } else if (c == '-') {
-                if (root.rightChild == null) {
-                    root.rightChild = new TreeNode<String>();
-                }
-                root = root.rightChild;
-            }
-        }
+    if (code.isEmpty()) {
         root.data = letter;
+    } else if (code.charAt(0) == '.') {
+        if (root.leftChild == null) {
+            root.leftChild = new TreeNode<String>("");
+        }
+        addNode(root.leftChild, code.substring(1), letter);
+    } else if (code.charAt(0) == '-') {
+        if (root.rightChild == null) {
+            root.rightChild = new TreeNode<String>("");
+        }
+        addNode(root.rightChild, code.substring(1), letter);
     }
+}
 
 	@Override
 	public String fetch(String code) {
@@ -48,18 +46,20 @@ public class MorseCodeTree implements LinkedConverterTreeInterface<String> {
 
 	@Override
 	public String fetchNode(TreeNode<String> root, String code) {
-		for (int i = 0; i < code.length(); i++) {
-            char c = code.charAt(i);
-            if (c == '.') {
-                root = root.leftChild;
-            } else if (c == '-') {
-                root = root.rightChild;
-            }
-            if (root == null) {
-                return null;
-            }
-        }
-        return root.getData();
+		if (code.isEmpty()) {
+			return root.data;
+		} else if (code.charAt(0) == '.') {
+			if (root.leftChild == null) {
+				return null;
+			}
+			return fetchNode(root.leftChild, code.substring(1));
+		} else if (code.charAt(0) == '-') {
+			if (root.rightChild == null) {
+				return null;
+			}
+			return fetchNode(root.rightChild, code.substring(1));
+		}
+		return null;
 	}
 
 	@Override
