@@ -10,7 +10,6 @@ public class Road {
         weight = degree;
         this.name = name;
     }
-
     public Road (Town source, Town destination, String name){
 		this.source = source;
 		this.destination = destination;
@@ -27,7 +26,6 @@ public class Road {
         Road road = (Road)object;
         return(road.getSource().equals(new Town(source)) && road.getDestination().equals(new Town (destination))||road.getSource().equals(new Town (destination))&&road.getDestination().equals(new Town(source)));
     } 
-
     public String getName(){
         return name;
     }
