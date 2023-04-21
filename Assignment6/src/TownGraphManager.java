@@ -71,7 +71,6 @@ public class TownGraphManager implements TownGraphManagerInterface {
             String roadName = splitText[0];
             splitText = splitText[1].split(";");
             int weight = Integer.parseInt(splitText[0]);
-            splitText = line.split(";");
             String town1 = splitText[1];
             String town2 = splitText[2];
             graph.addVertex(new Town(town1));

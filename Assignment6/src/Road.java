@@ -22,9 +22,8 @@ public class Road {
     public boolean contains(Town town){
         return(source.equals(town) || destination.equals(town));
     }
-    public boolean equals(Object object){
-        Road road = (Road)object;
-        return(road.getSource().equals(new Town(source)) && road.getDestination().equals(new Town (destination))||road.getSource().equals(new Town (destination))&&road.getDestination().equals(new Town(source)));
+    public boolean equals(Road road){
+        return(this.equals(road));
     } 
     public String getName(){
         return name;
@@ -37,5 +36,8 @@ public class Road {
     }
     public int getWeight(){
         return weight;
+    }
+    public String toString(){
+        return name;
     }
 }

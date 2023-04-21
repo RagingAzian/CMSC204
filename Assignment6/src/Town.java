@@ -10,9 +10,8 @@ public class Town {
     int compareTo(Town town){
         return name.compareTo(town.getName());
     }
-    public boolean equals(Object object){
-        Town town = (Town)object;
-        return this.name.equals(town.getName());
+    public boolean equals(Town town){
+        return this.equals(town);
     }
     public String getName(){
         return name;
