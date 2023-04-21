@@ -1,189 +1,184 @@
 import java.util.*;
 
-public class Graph implements GraphInterface<Town, Road>{
-    HashMap<String, HashMap<String, Road>> adjMatrix = new HashMap<>();
-    private int[] distance;
-    private String[] prev;
-    private ArrayList<String> towns;
+public class Graph implements GraphInterface<Town, Road> {
+	HashMap<String, HashMap<String, Road>> matrix = new HashMap<>();
+	private int[] distance;
+	private String[] prev;
+	private ArrayList<String> towns;
 
-    public Road getEdge(Town sourceVertex,Town destinationVertex) {
+	public Road getEdge(Town sourceVertex, Town destinationVertex) {
 		try {
-			return (Road) adjMatrix.get(((Town) sourceVertex).getName()).get(((Town) destinationVertex).getName());
+			return (Road) matrix.get(((Town) sourceVertex).getName()).get(((Town) destinationVertex).getName());
 		} catch (Exception e) {
 			return null;
 		}
 	}
-    public Road addEdge(Town sourceVertex,Town destinationVertex,int weight,String description){
-        if(adjMatrix.get(sourceVertex.getName())==null&&adjMatrix.get(destinationVertex.getName())==null)
-            throw new IllegalArgumentException();
-        if (sourceVertex == null || destinationVertex == null) 
-            throw new NullPointerException();
-        Road road = new Road(sourceVertex,destinationVertex,weight,description);
-        adjMatrix.get(sourceVertex.getName()).put(destinationVertex.getName(),road);
-        adjMatrix.get(destinationVertex.getName()).put(sourceVertex.getName(),road);
-        return road;
-    }
-    public boolean addVertex(Town v) {
+
+	public Road addEdge(Town sourceVertex, Town destinationVertex, int weight, String description) {
+		if (matrix.get(sourceVertex.getName()) == null && matrix.get(destinationVertex.getName()) == null)
+			throw new IllegalArgumentException();
+		if (sourceVertex == null || destinationVertex == null)
+			throw new NullPointerException();
+		Road road = new Road(sourceVertex, destinationVertex, weight, description);
+		matrix.get(sourceVertex.getName()).put(destinationVertex.getName(), road);
+		matrix.get(destinationVertex.getName()).put(sourceVertex.getName(), road);
+		return road;
+	}
+
+	public boolean addVertex(Town v) {
 		if (v == null) {
 			throw new NullPointerException();
 		}
-		if (adjMatrix.containsKey(v.getName())) {
+		if (matrix.containsKey(v.getName())) {
 			return false;
 		}
-		adjMatrix.put(v.getName(), new HashMap<String, Road>());
-		adjMatrix.get(v.getName()).put(v.getName(), null);
+		matrix.put(v.getName(), new HashMap<String, Road>());
+		matrix.get(v.getName()).put(v.getName(), null);
 		return true;
 	}
-    public boolean containsEdge(Town sourceVertex, Town destinationVertex) {
-        if (adjMatrix.containsKey(sourceVertex.getName()) && adjMatrix.containsKey(destinationVertex.getName())) {
-            return adjMatrix.get(sourceVertex.getName()).get(destinationVertex.getName()) != null;
-        }
-        return false;
-    }
-    public boolean containsVertex(Town v){
-        return (adjMatrix.get(((Town) v).getName())!=null);
-    }
-    public Set<Road> edgeSet() {
-        Set<Road> road = new HashSet<Road>();
-        for (String key : adjMatrix.keySet()) {
-            Map<String, Road> edges = adjMatrix.get(key);
-            for (Road edge : edges.values()) {
-                if (edge != null) {
-                    road.add(edge);
-                }
-            }
-        }
-        return road;
-    }
-    public Set<Road> edgesOf(Town vertex) {
+
+	public boolean containsEdge(Town sourceVertex, Town destinationVertex) {
+		if (matrix.containsKey(sourceVertex.getName()) && matrix.containsKey(destinationVertex.getName())) {
+			return matrix.get(sourceVertex.getName()).get(destinationVertex.getName()) != null;
+		}
+		return false;
+	}
+
+	public boolean containsVertex(Town v) {
+		return (matrix.get(((Town) v).getName()) != null);
+	}
+
+	public Set<Road> edgeSet() {
+		Set<Road> road = new HashSet<Road>();
+		for (String key : matrix.keySet()) {
+			Map<String, Road> edges = matrix.get(key);
+			for (Road roads : edges.values()) {
+				if (roads != null) {
+					road.add(roads);
+				}
+			}
+		}
+		return road;
+	}
+
+	public Set<Road> edgesOf(Town vertex) {
 
 		Town t = (Town) vertex;
 		if (t == null) {
 			throw new NullPointerException();
 		}
-		if (adjMatrix.get(t.getName())==null) {
+		if (matrix.get(t.getName()) == null) {
 			throw new IllegalArgumentException();
 		}
 
-		Set<Road> road = new HashSet<Road>(adjMatrix.get(t.getName()).values());
+		Set<Road> road = new HashSet<Road>(matrix.get(t.getName()).values());
 		road.remove(null);
 		return road;
 	}
-    public Road removeEdge(Town sourceVertex, Town destinationVertex, int weight, String description) {
+
+	public Road removeEdge(Town sourceVertex, Town destinationVertex, int weight, String description) {
 		if (weight > -1 && description != null) {
-			Road road = adjMatrix.get(sourceVertex.getName()).get(destinationVertex.getName());
-			adjMatrix.get(sourceVertex.getName()).put(destinationVertex.getName(), null);
-			adjMatrix.get(destinationVertex.getName()).put(destinationVertex.getName(), null);
+			Road road = matrix.get(sourceVertex.getName()).get(destinationVertex.getName());
+			matrix.get(sourceVertex.getName()).put(destinationVertex.getName(), null);
+			matrix.get(destinationVertex.getName()).put(destinationVertex.getName(), null);
 			return road;
 		}
 		return null;
 	}
-    public boolean removeVertex(Town v) {
-		if (v == null || !adjMatrix.containsKey(v.getName())) {
+
+	public boolean removeVertex(Town v) {
+		if (v == null || matrix.get(v.getName()) == null) {
 			return false;
 		}
-		adjMatrix.remove(v.getName());
+		matrix.remove(v.getName());
 		return true;
 	}
-    public Set<Town> vertexSet() {
+
+	public Set<Town> vertexSet() {
 		Set<Town> road = new HashSet<Town>();
-		for (String key : adjMatrix.keySet()) {
+		for (String key : matrix.keySet()) {
 			road.add(new Town(key));
 		}
 		return road;
 	}
-    public ArrayList shortestPath(Town sourceVertex, Town destinationVertex) {
-		// TODO Auto-generated method stub
+
+	public ArrayList<String> shortestPath(Town sourceVertex, Town destinationVertex) {
 		dijkstraShortestPath(sourceVertex);
-		Town dest = (Town) destinationVertex;
-		// get the destination vertex and then just trace back until we get to the
-		// source vertex.
-		ArrayList<String> path = new ArrayList<String>();
-		ArrayList<Integer> path_weight = new ArrayList<Integer>();
-		List<Town> verts = new ArrayList<Town>(vertexSet());
+		ArrayList<String> path = new ArrayList<>();
+		ArrayList<Integer> pathWeight = new ArrayList<>();
+		ArrayList<String> finalPath = new ArrayList<>();
 
-		int ind = towns.indexOf(dest.getName());
-		path.add(dest.getName());
-		while (prev[ind] != null) {
-
-			path.add(prev[ind]);
-			path_weight.add(distance[ind]);
-			ind = towns.indexOf(prev[ind]);
-
+		int index = towns.indexOf(destinationVertex.getName());
+		path.add(destinationVertex.getName());
+		while (prev[index] != null) {
+			path.add(prev[index]);
+			pathWeight.add(distance[index]);
+			index = towns.indexOf(prev[index]);
 		}
-
 		Collections.reverse(path);
-		Collections.reverse(path_weight);
-		ArrayList<String> finalPath = new ArrayList<String>();
-		int runningCount = 0;
+		Collections.reverse(pathWeight);
+		int count = 0;
 		for (int i = 0; i < path.size() - 1; i++) {
-			finalPath.add(path.get(i) + " via "
-					+ (((Road) this.getEdge(new Town(path.get(i)), new Town(path.get(i + 1)))).getName()) + " to "
-					+ path.get(i + 1) + " " +(path_weight.get(i)- runningCount)+" mi");
-			runningCount += path_weight.get(i)- runningCount;
+			String sourceName = path.get(i);
+			String destinationName = path.get(i + 1);
+			Road road = (Road) this.getEdge(new Town(sourceName), new Town(destinationName));
+			String roadName = road.getName();
+			int distance = pathWeight.get(i) - count;
+			String pathString = sourceName + " via " + roadName + " to " + destinationName + " " + distance + " mi";
+			finalPath.add(pathString);
+			count += distance;
 		}
-
 		return finalPath;
 	}
-    public void dijkstraShortestPath(Town sourceVertex) {
-		String src = ((Town) sourceVertex).getName();
-		List<Town> verts = new ArrayList<Town>(vertexSet());
-		towns = new ArrayList<String>();
-		ArrayList<String> unvisited = new ArrayList<String>();
-		for (Town v : verts) {
+
+	public void dijkstraShortestPath(Town sourceVertex) {
+		String source = sourceVertex.getName();
+		List<Town> vertices = new ArrayList<>(vertexSet());
+		towns = new ArrayList<>();
+		ArrayList<String> unvisited = new ArrayList<>();
+		for (Town v : vertices) {
 			towns.add(v.getName());
 			unvisited.add(v.getName());
 		}
-//		unvisited.remove(unvisited.indexOf(src));
 
 		distance = new int[towns.size()];
 		prev = new String[towns.size()];
 
-		Arrays.fill(distance, Integer.MAX_VALUE);
-		distance[towns.indexOf(src)] = 0;
-
+		for (int i = 0; i < distance.length; i++) {
+			distance[i] = Integer.MAX_VALUE;
+		}
+		distance[towns.indexOf(source)] = 0;
 		while (!unvisited.isEmpty()) {
-
-			// get neighboring verticies next to the source
-			HashMap<String, Road> connected_nodes = adjMatrix.get(src);
-			for (String t : connected_nodes.keySet()) {
-				if (unvisited.indexOf(t) != -1 && connected_nodes.get(t) != null) {
-					int ind = towns.indexOf(t);
-					int curr_ind = towns.indexOf(src);
-					int weight = connected_nodes.get(t).getWeight();
-					if (distance[curr_ind] + weight < distance[ind]) {
-
-						distance[ind] = weight + distance[curr_ind];
-						prev[ind] = src;
-					}
-
+			HashMap<String, Road> connected = matrix.get(source);
+			for (String key : connected.keySet()) {
+				if (unvisited.indexOf(key) == -1 || connected.get(key) == null) {
+					continue;
 				}
-
+				int ind = towns.indexOf(key);
+				int curr = towns.indexOf(source);
+				int weight = connected.get(key).getWeight();
+				if (distance[curr] + weight < distance[ind]) {
+					distance[ind] = weight + distance[curr];
+					prev[ind] = source;
+				}
 			}
-			unvisited.remove(unvisited.indexOf(src));
-			if(unvisited.isEmpty()) {
+			unvisited.remove(unvisited.indexOf(source));
+			if (unvisited.isEmpty()) {
 				break;
 			}
-			// get unvisited smallest distance, and set it as source
-
-			
 			int shortest = Integer.MAX_VALUE;
-			int shortest_ind = -1;
+			int shortestIndex = -1;
 			for (String t : unvisited) {
 				int ind = towns.indexOf(t);
 				if (distance[ind] < shortest) {
 					shortest = distance[ind];
-					shortest_ind = ind;
+					shortestIndex = ind;
 				}
 			}
-			
-			if(shortest_ind== -1) {
-	
+			if (shortestIndex == -1) {
 				break;
 			}
-			src = towns.get(shortest_ind);
-
+			source = towns.get(shortestIndex);
 		}
-
 	}
 }
