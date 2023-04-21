@@ -1,14 +1,14 @@
 import java.util.*;
 
 public class Graph implements GraphInterface<Town, Road> {
-	HashMap<String, HashMap<String, Road>> matrix = new HashMap<>();
+	HashMap<String, HashMap<String, Road>> matrix = new HashMap<String, HashMap<String, Road>>();
 	private int[] distance;
 	private String[] prev;
 	private ArrayList<String> towns;
 
 	public Road getEdge(Town sourceVertex, Town destinationVertex) {
 		try {
-			return (Road) matrix.get(((Town) sourceVertex).getName()).get(((Town) destinationVertex).getName());
+			return matrix.get((sourceVertex).getName()).get((destinationVertex).getName());
 		} catch (Exception e) {
 			return null;
 		}

@@ -22,9 +22,10 @@ public class Road {
     public boolean contains(Town town){
         return(source.equals(town) || destination.equals(town));
     }
-    public boolean equals(Road road){
-        return(this.equals(road));
-    } 
+    public boolean equals(Object obj) {
+		Road road = (Road) obj;
+		return(road.getSource().equals(new Town(source)) && road.getDestination().equals(new Town(destination)) || road.getSource().equals(new Town(destination)) && road.getDestination().equals(new Town(source))); 
+	}
     public String getName(){
         return name;
     }

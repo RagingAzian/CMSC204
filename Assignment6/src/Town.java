@@ -4,15 +4,16 @@ public class Town {
         name = town;
     }
     Town(Town town){
-        this.name = town.getName();
+        name = town.getName();
     }
-
-    int compareTo(Town town){
-        return name.compareTo(town.getName());
-    }
-    public boolean equals(Town town){
-        return this.equals(town);
-    }
+    public int compareTo(Town town) {
+		return name.compareTo(town.getName());
+	}
+    public boolean equals(Object obj) {
+		Town town = (Town)obj;
+		return this.name.equals(town.getName());
+		
+	}
     public String getName(){
         return name;
     }
@@ -20,6 +21,6 @@ public class Town {
         return name.hashCode();
     }
     public String toString(){
-        return getName();    
+        return name;    
     }
 }
