@@ -1,3 +1,7 @@
+/**
+ * @author Justin Nguyen
+ */
+
 import java.util.*;
 
 public class Graph implements GraphInterface<Town, Road> {

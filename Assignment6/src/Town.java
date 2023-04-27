@@ -1,3 +1,7 @@
+/**
+ * @author Justin Nguyen
+ */
+
 public class Town {
     private String name;
     Town(String town){

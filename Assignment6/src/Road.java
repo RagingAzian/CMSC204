@@ -1,3 +1,7 @@
+/**
+ * @author Justin Nguyen
+ */
+
 public class Road {
     private Town source;
     private Town destination;

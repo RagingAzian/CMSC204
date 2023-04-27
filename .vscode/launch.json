@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CarFrame",
+            "request": "launch",
+            "mainClass": "CarFrame",
+            "projectName": "CMSC204_4b5117b8"
+        },
+        {
+            "type": "java",
             "name": "DriverFX",
             "request": "launch",
             "vmArgs": "--module-path C:\\Users\\justi\\Downloads\\openjfx-19.0.2.1_windows-x64_bin-sdk\\javafx-sdk-19.0.2.1\\lib --add-modules javafx.controls,javafx.fxml",
